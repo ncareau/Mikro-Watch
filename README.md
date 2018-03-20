@@ -16,6 +16,7 @@ Currently push to inflxudb directly, but plans are to output data for telegraf i
 
 - `php mikro-watch influxdb` will push one time to influxdb
 - `php mikro-watch daemon` will start a daemon pushing to influxdb each 10 sec. 
+  - `--timeout 5` or `-t 5` to change the timeout between calls in seconds. 
 
 ## Note
 
