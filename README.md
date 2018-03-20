@@ -10,7 +10,7 @@ Mikrotik-Watch will :
 
 Currently push to inflxudb directly, but plan are to output data for telegraf ingestion or display in a simple webpage.
 
-![Grafana Example](https://github.com/ncareau/mikro-watch/demo/panel.PNG)
+![Grafana Example](https://github.com/ncareau/mikro-watch/raw/master/demo/panel.PNG)
 
 ## Running
 
