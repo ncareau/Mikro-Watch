@@ -10,9 +10,12 @@
         }
     ],
     "require": {
+        "php": ">=5.6",
         "symfony/console": "^3.4",
+        "symfony/debug": "^3.4",
         "symfony/var-dumper": "^3.4",
         "symfony/dotenv": "^3.4",
+        "symfony/event-dispatcher": "^3.4",
         "guzzlehttp/guzzle": "^6.3",
         "s1lentium/iptools": "^1.1",
         "influxdb/influxdb-php": "^1.14",

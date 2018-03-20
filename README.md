@@ -8,7 +8,7 @@ Mikrotik-Watch will :
 - Process each bidirectional transfer to get metrics for each internal IP (Within specified range)
 - Push or display data. 
 
-Currently push to inflxudb directly, but plan are to output data for telegraf ingestion or display in a simple webpage.
+Currently push to inflxudb directly, but plans are to output data for telegraf ingestion or display in a simple webpage.
 
 ![Grafana Example](https://github.com/ncareau/mikro-watch/raw/master/demo/panel.PNG)
 
