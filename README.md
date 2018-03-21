@@ -2,7 +2,7 @@
 
 PHP process to capture and relay or display the mikrotik Accounting data.
 
-Mikrotik-Watch will : 
+Mikro-Watch will : 
 
 - Fetch the data from the mikrotik router.
 - Process each bidirectional transfer to get metrics for each internal IP (Within specified range)
@@ -12,7 +12,15 @@ Currently push to inflxudb directly, but plans are to output data for telegraf i
 
 ![Grafana Example](https://github.com/ncareau/mikro-watch/raw/master/demo/panel.PNG)
 
-## Running
+## Requirements
+
+PHP 5.6 minimum
+
+## Configuration and running
+
+First, copy the `.env.dist` file to `.env` and fill the information with your current network.
+
+Next, make sure your router is configured to accept request to the account page by going to `IP -> Accounting -> Web Access`
 
 - `php mikro-watch influxdb` will push one time to influxdb
 - `php mikro-watch daemon` will start a daemon pushing to influxdb each 10 sec. 
