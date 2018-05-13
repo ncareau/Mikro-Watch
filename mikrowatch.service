@@ -1,0 +1,24 @@
+# Place this file in /etc/systemd/system/mikrowatch.service
+# Edit the path and user this script will run
+# 
+#
+# Enable it with:
+#   systemctl enable mikrowatch.service
+#   systemctl daemon-reload
+
+[Unit]
+Description=mikrowatch
+After=syslog.target
+
+[Service]
+User=<user>
+Group=<group>
+ProtectSystem=full
+Type=simple
+ExecStart=/path/to/mikro-watch daemon \
+--quiet
+Restart=always
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
