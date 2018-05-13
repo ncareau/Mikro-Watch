@@ -26,6 +26,8 @@ Next, make sure your router is configured to accept request to the account page 
 - `php mikro-watch daemon` will start a daemon pushing to influxdb each 10 sec. 
   - `--timeout 5` or `-t 5` to change the timeout between calls in seconds. 
 
+INstruction to install this application as a systemd service are located in the `mikrowatch.service` file.
+
 ## Note
 
 Enabling FastTrack means that some packet will not be accounted for. To disable this (This will result in more CPU usage on your router) disable the fasttrack rule in `IP -> Firewall -> Filter Rules`. 
