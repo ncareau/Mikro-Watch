@@ -44,12 +44,14 @@ class DaemonCommand extends EndlessCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-
         $accounting_service = new AccountingService($this->influxdb_database, $this->http_client);
 
         try {
             $accounting_service->fetch();
             $accounting_service->parse();
+
+            $this->throwExceptionOnShutdown();
+
             $accounting_service->push();
         } catch (\Exception $e) {
             $output->writeln($e->getMessage());
