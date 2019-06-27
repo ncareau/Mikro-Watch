@@ -57,7 +57,7 @@ services:
  
 ### Manual
 
-Copy the `.env.dist` file to `.env` and fill the information with your current network.
+Copy the `.env` file to `.env.local` and change the information with your current network.
 
 - `php mikro-watch influxdb` will push once to influxdb
 - `php mikro-watch daemon` will start a daemon pushing to influxdb each 10 sec. 
