@@ -24,7 +24,7 @@ class InfluxDBCommand extends Command
     {
         $client = new \GuzzleHttp\Client();
 
-        $influx_client = new Client(getenv('INFLUXDB_HOST'));
+        $influx_client = new Client(getenv('INFLUXDB_HOST'), getenv('INFLUXDB_PORT'));
         $database = $influx_client->selectDB(getenv('INFLXUDB_DATABASE'));
 
         $accounting_service = new AccountingService($database, $client);

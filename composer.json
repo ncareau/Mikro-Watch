@@ -18,8 +18,8 @@
         "symfony/event-dispatcher": "^3.4",
         "guzzlehttp/guzzle": "^6.3",
         "s1lentium/iptools": "^1.1",
-        "influxdb/influxdb-php": "^1.14",
-        "wrep/daemonizable-command": "^2.0"
+        "influxdb/influxdb-php": "^1.15",
+        "wrep/daemonizable-command": "^2.1"
     },
     "autoload": {
         "psr-4": {
