@@ -29,12 +29,9 @@ class InfluxDBCommand extends Command
 
         $accounting_service = new AccountingService($database, $client);
 
-        try {
-            $accounting_service->fetch();
-            $accounting_service->parse();
-            $accounting_service->push();
-        } catch (\Exception $e) {
-        }
+        $accounting_service->fetch();
+        $accounting_service->parse();
+        $accounting_service->push();
 
     }
 
