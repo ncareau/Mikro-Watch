@@ -39,7 +39,15 @@ class AccountingService
      */
     public function fetch()
     {
-        $res = $this->http_client->request('GET', 'http://' . getenv('MIKROTIK_IP') . '/accounting/ip.cgi');
+
+        $proto = getenv('MIKROTIK_PROTO');
+        if(!in_array($proto, ['http', 'https'])){
+            $proto = 'http';
+        }
+
+        $ip = IP::parse(getenv('MIKROTIK_IP'));
+
+        $res = $this->http_client->request('GET', $proto.'://' . (string)$ip . '/accounting/ip.cgi');
 
         $this->body_result = $res->getBody();
 
