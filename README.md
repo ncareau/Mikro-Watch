@@ -65,6 +65,20 @@ Copy the `.env` file to `.env.local` and change the information with your curren
 
 Instructions to install this application as a systemd service are located in the `mikrowatch.service` file.
 
+### Environment Variables
+
+| Variable | Description |
+| --- | --- |
+| `MIKROTIK_IP` | IP of your mikrotik router |
+| `MIKROTIK_PROTO` | Default: `https` |
+| `MIKROTIK_SSL_VERIFY` | if using `https`, verify for valid ssl certificate |
+| `NETWORK_RANGE` | Range of your network to filter ips. |
+| `INFLUXDB_HOST` | Influxdb host |
+| `INFLUXDB_USER` | Influxdb username |
+| `INFLUXDB_PASS` | Influxdb password |
+| `INFLUXDB_DATABASE` | Influxdb database |
+
+
 ## Note & Troucleshooting
 
 When FastTrack is enabled, some packet will not be accounted for. To disable this (This will result in more CPU usage on your router) disable the fasttrack rule in `IP -> Firewall -> Filter Rules`. 
