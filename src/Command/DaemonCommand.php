@@ -35,7 +35,7 @@ class DaemonCommand extends EndlessCommand
         $this->http_client = new \GuzzleHttp\Client(['verify'=> getenv('MIKROTIK_SSL_VERIFY') == 'true' ? true : false]);
 
         $influx_client = new Client(getenv('INFLUXDB_HOST'), getenv('INFLUXDB_PORT'), getenv('INFLUXDB_USER'), getenv('INFLUXDB_PASS'));
-        $this->influxdb_database = $influx_client->selectDB(getenv('INFLXUDB_DATABASE'));
+        $this->influxdb_database = $influx_client->selectDB(getenv('INFLUXDB_DATABASE'));
 
         if ($input->getOption('timeout')) {
             $this->setTimeout($input->getOption('timeout'));
