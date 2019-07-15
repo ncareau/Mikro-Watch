@@ -114,12 +114,12 @@ class AccountingService
 
             if($d->down_packet > 0){
                 $counters["down_packet"] = (int)$d->down_packet;
-                $counter["down_byte"] = (int)$d->down_byte;
+                $counters["down_byte"] = (int)$d->down_byte;
             }
 
             if($d->up_packet > 0){
                 $counters["up_packet"] = (int)$d->up_packet;
-                $counter["up_byte"] = (int)$d->up_byte;
+                $counters["up_byte"] = (int)$d->up_byte;
             }
 
             $points[] = new Point(
