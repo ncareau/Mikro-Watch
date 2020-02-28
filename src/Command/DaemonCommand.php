@@ -34,7 +34,7 @@ class DaemonCommand extends EndlessCommand
 
     protected function initialize(InputInterface $input, OutputInterface $output)
     {
-        $this->http_client = new \GuzzleHttp\Client(['verify'=> getenv('MIKROTIK_SSL_VERIFY') == 'true' ? true : false]);
+        $this->http_client = new \GuzzleHttp\Client(['verify'=> getenv('MIKROTIK_SSL_VERIFY') == 'true']);
 
         $influx_client = new Client(getenv('INFLUXDB_HOST'), getenv('INFLUXDB_PORT'), getenv('INFLUXDB_USER'), getenv('INFLUXDB_PASS'));
         $this->influxdb_database = $influx_client->selectDB(getenv('INFLUXDB_DATABASE'));
