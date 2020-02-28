@@ -13,6 +13,8 @@ use Wrep\Daemonizable\Command\EndlessCommand;
 class DaemonCommand extends EndlessCommand
 {
 
+    const INPUT_OPTION_TIMEOUT = 'timeout';
+
     protected $influxdb_database;
     protected $http_client;
 
@@ -24,7 +26,7 @@ class DaemonCommand extends EndlessCommand
             ->setHelp('This command allows you to push data periodically to InfluxDB as an endless process')
             ->setDefinition(
                 new InputDefinition([
-                    new InputOption('timeout', 't', InputOption::VALUE_OPTIONAL)
+                    new InputOption(self::INPUT_OPTION_TIMEOUT, 't', InputOption::VALUE_OPTIONAL)
                 ])
             )
             ->setTimeout(10);
@@ -32,13 +34,13 @@ class DaemonCommand extends EndlessCommand
 
     protected function initialize(InputInterface $input, OutputInterface $output)
     {
-        $this->http_client = new \GuzzleHttp\Client(['verify'=> getenv('MIKROTIK_SSL_VERIFY') == 'true' ? true : false]);
+        $this->http_client = new \GuzzleHttp\Client(['verify'=> getenv('MIKROTIK_SSL_VERIFY') == 'true']);
 
         $influx_client = new Client(getenv('INFLUXDB_HOST'), getenv('INFLUXDB_PORT'), getenv('INFLUXDB_USER'), getenv('INFLUXDB_PASS'));
         $this->influxdb_database = $influx_client->selectDB(getenv('INFLUXDB_DATABASE'));
 
-        if ($input->getOption('timeout')) {
-            $this->setTimeout($input->getOption('timeout'));
+        if ($input->getOption(self::INPUT_OPTION_TIMEOUT)) {
+            $this->setTimeout($input->getOption(self::INPUT_OPTION_TIMEOUT));
         }
     }
 
