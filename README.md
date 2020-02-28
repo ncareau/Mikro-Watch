@@ -1,5 +1,7 @@
 # Mikro-Watch
 
+ [![Sonarcloud Status](https://sonarcloud.io/api/project_badges/measure?project=ncareau_mikro-watch&metric=alert_status)](https://sonarcloud.io/dashboard?id=ncareau_mikro-watch) 
+
 PHP process to capture and relay or display the mikrotik Accounting data.
 
 Mikro-Watch will : 
