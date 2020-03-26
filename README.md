@@ -1,6 +1,7 @@
 # Mikro-Watch
 
- [![Sonarcloud Status](https://sonarcloud.io/api/project_badges/measure?project=ncareau_mikro-watch&metric=alert_status)](https://sonarcloud.io/dashboard?id=ncareau_mikro-watch) 
+ [![Sonarcloud Status](https://sonarcloud.io/api/project_badges/measure?project=ncareau_mikro-watch&metric=alert_status)](https://sonarcloud.io/dashboard?id=ncareau_mikro-watch) [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fncareau%2Fmikro-watch.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fncareau%2Fmikro-watch?ref=badge_shield)
+
 
 PHP process to capture and relay or display the mikrotik Accounting data.
 
@@ -86,3 +87,7 @@ Instructions to install this application as a systemd service are located in the
 When FastTrack is enabled, some packet will not be accounted for. To disable this (This will result in more CPU usage on your router) disable the fasttrack rule in `IP -> Firewall -> Filter Rules`. 
 
 Calling the accounting webpage resets the counter. This means that if multiple processes or users call the mikrotik api, only a subset of the data will be captured.
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fncareau%2Fmikro-watch.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fncareau%2Fmikro-watch?ref=badge_large)
