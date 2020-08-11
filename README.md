@@ -74,6 +74,7 @@ Instructions to install this application as a systemd service are located in the
 | `MIKROTIK_IP` | IP of your mikrotik router |
 | `MIKROTIK_PROTO` | Default: `https` |
 | `MIKROTIK_SSL_VERIFY` | if using `https`, verify for valid ssl certificate |
+| `MIKROTIK_PORT` | Use if your Mikrotik listens on a port other than 80 for http or 443. Must include `:` |
 | `NETWORK_RANGE` | Range of your network to filter ips. |
 | `INFLUXDB_HOST` | Influxdb host |
 | `INFLUXDB_USER` | Influxdb username |
