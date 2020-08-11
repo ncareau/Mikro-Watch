@@ -47,7 +47,13 @@ class AccountingService
 
         $ip = IP::parse(getenv('MIKROTIK_IP'));
 
-        $res = $this->http_client->request('GET', $proto.'://' . (string)$ip . '/accounting/ip.cgi');
+        $port = getenv("MIKROTIK_PORT");
+        if ($port == false) {
+            $port = "";
+        }
+
+
+        $res = $this->http_client->request('GET', $proto.'://' . (string)$ip . $port . '/accounting/ip.cgi');
 
         $this->body_result = $res->getBody();
 
