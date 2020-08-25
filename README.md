@@ -82,7 +82,7 @@ Instructions to install this application as a systemd service are located in the
 | `INFLUXDB_DATABASE` | Influxdb database |
 
 
-## Note & Troucleshooting
+## Note & Troubleshooting
 
 When FastTrack is enabled, some packet will not be accounted for. To disable this (This will result in more CPU usage on your router) disable the fasttrack rule in `IP -> Firewall -> Filter Rules`. 
 
