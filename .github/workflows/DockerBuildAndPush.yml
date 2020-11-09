@@ -21,7 +21,7 @@ jobs:
         name: Login to GitHub Container Registry
         uses: docker/login-action@v1 
         with:
-          registry: ghcr.io
+          registry: docker.pkg.github.com
           username: ${{ github.repository_owner }}
           password: ${{ secrets.CR_PAT }}    
       -
@@ -33,4 +33,4 @@ jobs:
           platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x
           push: true
           tags: |
-            ghcr.io/ncareau/mikro-watch/app:latest
+            docker.pkg.github.com/ncareau/mikro-watch:latest
