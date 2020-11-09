@@ -5,8 +5,6 @@ namespace App\Service;
 
 use App\Entity\IpAccount;
 use GuzzleHttp\Client;
-use InfluxDB\Database;
-use InfluxDB\Point;
 use IPTools\IP;
 use IPTools\Range;
 
@@ -14,9 +12,29 @@ class AccountingService
 {
 
     /**
+     * @var Range
+     */
+    protected $network_range;
+
+    /**
+     * @var IP
+     */
+    protected $mikrotik_ip;
+
+    /**
+     * @var string
+     */
+    protected $mikrotik_port;
+
+    /**
+     * @var string
+     */
+    protected $mikrotik_proto;
+
+    /**
      * @var IpAccount[]
      */
-    public $data = [];
+    protected $data = [];
 
     protected $body_result;
 
@@ -25,13 +43,31 @@ class AccountingService
 
     /**
      * AccountingService constructor.
-     * @param Database $influxdb_database
      * @param Client $http_client
+     * @param string $network_range
+     * @param string $ip
+     * @param string $port
+     * @param string $proto
      */
-    public function __construct(Database $influxdb_database, Client $http_client)
+    public function __construct(Client $http_client, string $network_range, string $ip, string $port = ':80', string $proto = 'http')
     {
-        $this->influxdb_database = $influxdb_database;
         $this->http_client = $http_client;
+
+        $this->mikrotik_ip = IP::parse($ip);
+
+        $this->network_range = Range::parse($network_range);
+
+        if (!in_array($proto, ['http', 'https'])) {
+            $this->mikrotik_proto = 'http';
+        } else {
+            $this->mikrotik_proto = $proto;
+        }
+
+        if ($port == false) {
+            $this->mikrotik_port = "";
+        } else {
+            $this->mikrotik_port = $port;
+        }
     }
 
     /**
@@ -40,20 +76,7 @@ class AccountingService
     public function fetch()
     {
 
-        $proto = getenv('MIKROTIK_PROTO');
-        if(!in_array($proto, ['http', 'https'])){
-            $proto = 'http';
-        }
-
-        $ip = IP::parse(getenv('MIKROTIK_IP'));
-
-        $port = getenv("MIKROTIK_PORT");
-        if ($port == false) {
-            $port = "";
-        }
-
-
-        $res = $this->http_client->request('GET', $proto.'://' . (string)$ip . $port . '/accounting/ip.cgi');
+        $res = $this->http_client->request('GET', $this->mikrotik_proto . '://' . (string)$this->mikrotik_ip . $this->mikrotik_port . '/accounting/ip.cgi');
 
         $this->body_result = $res->getBody();
 
@@ -83,7 +106,7 @@ class AccountingService
             $bytes = $line[2];//byte
             $packets = $line[3];//packet
 
-            if (Range::parse(getenv('NETWORK_RANGE'))->contains($source)) {
+            if ($this->network_range->contains($source)) {
                 $ip = $source->__toString();
 
                 if (!isset($this->data[$ip])) {
@@ -93,7 +116,7 @@ class AccountingService
                 $this->data[$ip]->add_upload($bytes, $packets);
             }
 
-            if (Range::parse(getenv('NETWORK_RANGE'))->contains($dest)) {
+            if ($this->network_range->contains($dest)) {
                 $ip = $dest->__toString();
 
                 if (!isset($this->data[$ip])) {
@@ -107,42 +130,11 @@ class AccountingService
     }
 
     /**
-     * @throws Database\Exception
-     * @throws \InfluxDB\Exception
+     * @return IpAccount[]
      */
-    public function push()
+    public function getData()
     {
-        $points = [];
-
-        foreach ($this->data as $d) {
-
-            $counters = [];
-
-            if($d->down_packet > 0){
-                $counters["down_packet"] = (int)$d->down_packet;
-                $counters["down_byte"] = (int)$d->down_byte;
-            }
-
-            if($d->up_packet > 0){
-                $counters["up_packet"] = (int)$d->up_packet;
-                $counters["up_byte"] = (int)$d->up_byte;
-            }
-
-            $points[] = new Point(
-                'net_traffic',
-                null,
-                ["ip" => $d->ip, "host" => getenv('MIKROTIK_IP')],
-                $counters
-            );
-
-        }
-
-        $this->influxdb_database->writePoints($points, Database::PRECISION_MILLISECONDS);
-    }
-
-    public function show()
-    {
-
+        return $this->data;
     }
 
 }

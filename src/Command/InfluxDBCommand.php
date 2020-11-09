@@ -3,6 +3,7 @@
 namespace App\Command;
 
 use App\Service\AccountingService;
+use App\Service\InfluxDBService;
 use InfluxDB\Client;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -22,16 +23,17 @@ class InfluxDBCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $client = new \GuzzleHttp\Client();
+        $client = new \GuzzleHttp\Client(['verify' => getenv('MIKROTIK_SSL_VERIFY') == 'true']);
 
         $influx_client = new Client(getenv('INFLUXDB_HOST'), getenv('INFLUXDB_PORT'), getenv('INFLUXDB_USER'), getenv('INFLUXDB_PASS'));
         $database = $influx_client->selectDB(getenv('INFLUXDB_DATABASE'));
 
-        $accounting_service = new AccountingService($database, $client);
+        $accounting_service = new AccountingService($client, getenv('NETWORK_RANGE'), getenv('MIKROTIK_IP'), getenv('MIKROTIK_PORT'), getenv('MIKROTIK_PROTO'));
+        $influxdb_service = new InfluxDBService($database);
 
         $accounting_service->fetch();
         $accounting_service->parse();
-        $accounting_service->push();
+        $influxdb_service->push($accounting_service->getData());
 
     }
 

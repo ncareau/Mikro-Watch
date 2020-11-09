@@ -3,6 +3,7 @@
 namespace App\Command;
 
 use App\Service\AccountingService;
+use App\Service\InfluxDBService;
 use InfluxDB\Client;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
@@ -34,7 +35,7 @@ class DaemonCommand extends EndlessCommand
 
     protected function initialize(InputInterface $input, OutputInterface $output)
     {
-        $this->http_client = new \GuzzleHttp\Client(['verify'=> getenv('MIKROTIK_SSL_VERIFY') == 'true']);
+        $this->http_client = new \GuzzleHttp\Client(['verify' => getenv('MIKROTIK_SSL_VERIFY') == 'true']);
 
         $influx_client = new Client(getenv('INFLUXDB_HOST'), getenv('INFLUXDB_PORT'), getenv('INFLUXDB_USER'), getenv('INFLUXDB_PASS'));
         $this->influxdb_database = $influx_client->selectDB(getenv('INFLUXDB_DATABASE'));
@@ -46,7 +47,8 @@ class DaemonCommand extends EndlessCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $accounting_service = new AccountingService($this->influxdb_database, $this->http_client);
+        $accounting_service = new AccountingService($this->http_client, getenv('NETWORK_RANGE'), getenv('MIKROTIK_IP'), getenv('MIKROTIK_PORT'), getenv('MIKROTIK_PROTO'));
+        $influxdb_service = new InfluxDBService($this->influxdb_database);
 
         try {
             $accounting_service->fetch();
@@ -54,7 +56,7 @@ class DaemonCommand extends EndlessCommand
 
             $this->throwExceptionOnShutdown();
 
-            $accounting_service->push();
+            $influxdb_service->push($accounting_service->getData());
         } catch (\Exception $e) {
             $output->writeln($e->getMessage());
 
