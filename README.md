@@ -1,6 +1,6 @@
 # Mikro-Watch
 
- [![Sonarcloud Status](https://sonarcloud.io/api/project_badges/measure?project=ncareau_mikro-watch&metric=alert_status)](https://sonarcloud.io/dashboard?id=ncareau_mikro-watch) [![Docker Pulls](https://img.shields.io/docker/pulls/ncareau/mikro-watch)](https://hub.docker.com/r/ncareau/mikro-watch)
+ [![Sonarcloud Status](https://sonarcloud.io/api/project_badges/measure?project=ncareau_mikro-watch&metric=alert_status)](https://sonarcloud.io/dashboard?id=ncareau_mikro-watch) ![PHP Composer](https://github.com/ncareau/Mikro-Watch/workflows/PHP%20Composer/badge.svg?branch=master) [![Docker Pulls](https://img.shields.io/docker/pulls/ncareau/mikro-watch)](https://hub.docker.com/r/ncareau/mikro-watch)
 
 PHP process to capture and relay or display the mikrotik Accounting data.
 
