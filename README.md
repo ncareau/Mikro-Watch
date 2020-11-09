@@ -26,6 +26,8 @@ Currently push to inflxudb directly, but plans are to output data for telegraf i
 
 First, make sure your router is configured to accept request to the account page by going to `IP -> Accounting -> Web Access`
 
+In `Address`, enter a single/range of authorized IP that can access the accounting page. Ex ( `192.168.0.50/32` for single ip, `192.168.0.0/24` for the whole /24 subnet)
+
 ### Docker
 
 ```bash
@@ -64,6 +66,7 @@ Copy the `.env` file to `.env.local` and change the information with your curren
 - `php mikro-watch influxdb` will push once to influxdb
 - `php mikro-watch daemon` will start a daemon pushing to influxdb each 10 sec. 
   - `--timeout 5` or `-t 5` to change the timeout between calls in seconds. 
+- `php mikro-watch json` will output the accounting result as json.  
 
 Instructions to install this application as a systemd service are located in the `mikrowatch.service` file.
 

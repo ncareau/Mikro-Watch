@@ -14,5 +14,6 @@ $application = new Application();
 
 $application->add(new \App\Command\DaemonCommand());
 $application->add(new \App\Command\InfluxDBCommand());
+$application->add(new \App\Command\JsonCommand());
 
 $application->run();
