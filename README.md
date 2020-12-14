@@ -46,6 +46,7 @@ docker run -d --name mikro-watch \
 ```yaml
 version: '3'
 services:
+
     mikro-watch:
         image: ncareau/mikro-watch
         container_name: mikro-watch
