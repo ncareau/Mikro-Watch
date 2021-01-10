@@ -5,6 +5,7 @@ namespace App\Entity;
 class IpAccount
 {
     public $ip;
+    public $local = false;
     public $down_byte = 0;
     public $down_packet = 0;
     public $up_byte = 0;
@@ -14,9 +15,10 @@ class IpAccount
      * IpAccount constructor.
      * @param string $ip
      */
-    public function __construct(string $ip)
+    public function __construct(string $ip, bool $local)
     {
         $this->ip = $ip;
+        $this->local = $local;
     }
 
     /**

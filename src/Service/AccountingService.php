@@ -105,22 +105,23 @@ class AccountingService
             $dest = new IP($line[1]);
             $bytes = $line[2];//byte
             $packets = $line[3];//packet
+            $local = $this->network_range->contains($source) && $this->network_range->contains($dest);
 
             if ($this->network_range->contains($source)) {
                 $ip = $source->__toString();
 
                 if (!isset($this->data[$ip])) {
-                    $this->data[$ip] = new IpAccount($ip);
+                    $this->data[$ip] = new IpAccount($ip, $local);
                 }
 
-                $this->data[$ip]->add_upload($bytes, $packets);
+                $this->data[$ip]->add_upload($bytes, $packets, $local);
             }
 
             if ($this->network_range->contains($dest)) {
                 $ip = $dest->__toString();
 
                 if (!isset($this->data[$ip])) {
-                    $this->data[$ip] = new IpAccount($ip);
+                    $this->data[$ip] = new IpAccount($ip, $local);
                 }
 
                 $this->data[$ip]->add_download($bytes, $packets);
