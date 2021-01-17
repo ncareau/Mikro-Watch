@@ -35,7 +35,7 @@ class IpAccountingTest extends TestCase
     {
         $ipAccount = new \App\Entity\IpAccount(self::TEST_IP);
 
-        $ipAccount->add_upload(10,10);
+        $ipAccount->add_upload(10,10, false);
 
         $this->assertEquals(0, $ipAccount->down_byte);
         $this->assertEquals(0, $ipAccount->down_packet);

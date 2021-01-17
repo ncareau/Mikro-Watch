@@ -48,7 +48,7 @@ class InfluxDBService
             $points[] = new Point(
                 'net_traffic',
                 null,
-                ["ip" => $d->ip, "host" => getenv('MIKROTIK_IP')],
+                ["ip" => $d->ip, "host" => getenv('MIKROTIK_IP'), "traffic_type" => $d->local ? "local" : "external"],
                 $counters
             );
 
