@@ -45,7 +45,7 @@ class IpAccount
      */
     public function set_dnsname(string $ip)
     {
-        if (getenv('DNS_REVERSE_LOOKUP') == 'true') {
+        if (getenv('DNS_REVERSE_LOOKUP') == 'true' && !$this->dnsname) {
             # Reverse lookup. If no name is returned from DNS, getHostByAddr returns the IP
             $dnsname = getHostByAddr($ip);
 
