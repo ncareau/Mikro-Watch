@@ -38,6 +38,8 @@ docker run -d --name mikro-watch \
     -e INFLUXDB_USER=user \
     -e INFLUXDB_PASS=***pass*** \
     -e INFLUXDB_DATABASE=influxdb \
+    -e DNS_REVERSE_LOOKUP=false \
+    -e DNS_REVERSE_LOOKUP_TRIM_SUFFIX=false \
     ncareau/mikro-watch
 ```
 
@@ -57,6 +59,8 @@ services:
             - INFLUXDB_USER=user
             - INFLUXDB_PASS=***pass***
             - INFLUXDB_DATABASE=influxdb
+            - DNS_REVERSE_LOOKUP=false
+            - DNS_REVERSE_LOOKUP_TRIM_SUFFIX=false
         restart : unless-stopped 
 ```
  
@@ -84,6 +88,8 @@ Instructions to install this application as a systemd service are located in the
 | `INFLUXDB_USER` | Influxdb username |
 | `INFLUXDB_PASS` | Influxdb password |
 | `INFLUXDB_DATABASE` | Influxdb database |
+| `DNS_REVERSE_LOOKUP` | Enable reverse lookup |
+| `DNS_REVERSE_LOOKUP_TRIM_SUFFIX` | Remove domain suffix from domain name (hostname only) |
 
 
 ## Note & Troubleshooting

@@ -114,6 +114,7 @@ class AccountingService
                 }
 
                 $this->data[$ip]->add_upload($bytes, $packets);
+                $this->data[$ip]->set_dnsname($ip);
             }
 
             if ($this->network_range->contains($dest)) {
@@ -124,6 +125,7 @@ class AccountingService
                 }
 
                 $this->data[$ip]->add_download($bytes, $packets);
+                $this->data[$ip]->set_dnsname($ip);
             }
 
         }

@@ -45,10 +45,16 @@ class InfluxDBService
                 $counters["up_byte"] = (int)$d->up_byte;
             }
 
+            $tags = ["ip" => $d->ip, "host" => getenv('MIKROTIK_IP')];
+
+            if ($d->dnsname) {
+                $tags["dnsname"] = $d->dnsname;
+            }
+
             $points[] = new Point(
                 'net_traffic',
                 null,
-                ["ip" => $d->ip, "host" => getenv('MIKROTIK_IP')],
+                $tags,
                 $counters
             );
 
