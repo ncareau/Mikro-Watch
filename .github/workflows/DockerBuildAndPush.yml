@@ -23,9 +23,15 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
-          password: ${{ secrets.CR_PAT }}    
+          password: ${{ secrets.CR_PAT }}
       -
-        name: Build and push
+        name: Login to DockerHub
+        uses: docker/login-action@v1 
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Build and push 
         uses: docker/build-push-action@v2
         with:
           context: .
@@ -34,3 +40,4 @@ jobs:
           push: true
           tags: |
             ghcr.io/ncareau/mikro-watch:latest
+            ncareau/mikro-watch:latest
