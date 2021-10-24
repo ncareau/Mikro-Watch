@@ -24,7 +24,7 @@ Currently push to inflxudb directly, but plans are to output data for telegraf i
 
 ## Configuration and running
 
-First, make sure your router is configured to accept request to the account page by going to `IP -> Accounting -> Web Access`
+First, make sure your router is configured to accept request to the account page by going to `IP -> Accounting -> Web Access`. The default config uses HTTP, to use HTTPS, remove or change the `MIKROTIK_PROTO` line and have `MIKROTIK_SSL_VERIFY` if you have a selfsigned cert. 
 
 In `Address`, enter a single/range of authorized IP that can access the accounting page. Ex ( `192.168.0.50/32` for single ip, `192.168.0.0/24` for the whole /24 subnet)
 
@@ -33,6 +33,7 @@ In `Address`, enter a single/range of authorized IP that can access the accounti
 ```bash
 docker run -d --name mikro-watch \
     -e MIKROTIK_IP=10.0.0.1 \
+    -e MIKROTIK_PROTO=http \
     -e NETWORK_RANGE=10.0.0.1-10.0.0.255 \
     -e INFLUXDB_HOST=10.0.0.1 \
     -e INFLUXDB_USER=user \
@@ -54,6 +55,7 @@ services:
         container_name: mikro-watch
         environment:
             - MIKROTIK_IP=10.0.0.1
+            - MIKROTIK_PROTO=http
             - NETWORK_RANGE=10.0.0.1-10.0.0.255
             - INFLUXDB_HOST=10.0.0.1
             - INFLUXDB_USER=user
@@ -81,8 +83,8 @@ Instructions to install this application as a systemd service are located in the
 | --- | --- |
 | `MIKROTIK_IP` | IP of your mikrotik router |
 | `MIKROTIK_PROTO` | Default: `https` |
-| `MIKROTIK_SSL_VERIFY` | if using `https`, verify for valid ssl certificate |
-| `MIKROTIK_PORT` | Use if your Mikrotik listens on a port other than 80 for http or 443. Must include `:` For example `:8081` |
+| `MIKROTIK_SSL_VERIFY` | If using `https`, verify for valid ssl certificate (true/false) |
+| `MIKROTIK_PORT` | Use if your Mikrotik listens on a port other than 80 for http or 443 for https. Must include `:` For example `:8081` |
 | `NETWORK_RANGE` | Range of your network to filter ips. |
 | `INFLUXDB_HOST` | Influxdb host |
 | `INFLUXDB_USER` | Influxdb username |
