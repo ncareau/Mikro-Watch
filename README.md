@@ -24,7 +24,7 @@ Currently push to inflxudb directly, but plans are to output data for telegraf i
 
 ## Configuration and running
 
-First, make sure your router is configured to accept request to the account page by going to `IP -> Accounting -> Web Access`
+First, make sure your router is configured to accept request to the account page by going to `IP -> Accounting -> Web Access`. The default config uses HTTP, to use HTTPS, remove or change the `MIKROTIK_PROTO` line and have `MIKROTIK_SSL_VERIFY` if you have a selfsigned cert. 
 
 In `Address`, enter a single/range of authorized IP that can access the accounting page. Ex ( `192.168.0.50/32` for single ip, `192.168.0.0/24` for the whole /24 subnet)
 
@@ -83,7 +83,7 @@ Instructions to install this application as a systemd service are located in the
 | --- | --- |
 | `MIKROTIK_IP` | IP of your mikrotik router |
 | `MIKROTIK_PROTO` | Default: `https` |
-| `MIKROTIK_SSL_VERIFY` | if using `https`, verify for valid ssl certificate |
+| `MIKROTIK_SSL_VERIFY` | If using `https`, verify for valid ssl certificate (true/false) |
 | `MIKROTIK_PORT` | Use if your Mikrotik listens on a port other than 80 for http or 443 for https. Must include `:` For example `:8081` |
 | `NETWORK_RANGE` | Range of your network to filter ips. |
 | `INFLUXDB_HOST` | Influxdb host |
