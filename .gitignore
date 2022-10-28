@@ -21,6 +21,7 @@
 # PHPUnit
 /app/phpunit.xml
 /phpunit.xml
+coverage.xml
 
 # Build data
 /build/
