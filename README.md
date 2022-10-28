@@ -81,7 +81,7 @@ Instructions to install this application as a systemd service are located in the
 
 | Variable | Description |
 | --- | --- |
-| `MIKROTIK_IP` | IP of your mikrotik router |
+| `MIKROTIK_IP` | IP of your mikrotik router, can be multiple ips separated by a coma "," |
 | `MIKROTIK_PROTO` | Default: `https` |
 | `MIKROTIK_SSL_VERIFY` | If using `https`, verify for valid ssl certificate (true/false) |
 | `MIKROTIK_PORT` | Use if your Mikrotik listens on a port other than 80 for http or 443 for https. Must include `:` For example `:8081` |
