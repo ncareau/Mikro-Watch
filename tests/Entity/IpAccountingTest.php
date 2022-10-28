@@ -8,6 +8,9 @@ class IpAccountingTest extends TestCase
 
     const TEST_IP = '10.0.0.1';
 
+    /**
+     * @covers
+     */
     public function testIpCreateEmpty(): void
     {
         $ipAccount = new \App\Entity\IpAccount(self::TEST_IP);
@@ -18,7 +21,9 @@ class IpAccountingTest extends TestCase
         $this->assertEquals(0, $ipAccount->up_packet);
     }
 
-
+    /**
+     * @covers
+     */
     public function testIpAddDownload(): void
     {
         $ipAccount = new \App\Entity\IpAccount(self::TEST_IP);
@@ -31,6 +36,9 @@ class IpAccountingTest extends TestCase
         $this->assertEquals(0, $ipAccount->up_packet);
     }
 
+    /**
+     * @covers
+     */
     public function testIpAddUpload(): void
     {
         $ipAccount = new \App\Entity\IpAccount(self::TEST_IP);
