@@ -31,12 +31,12 @@ class InfluxDBCommand extends Command
         $accounting_service = [];
         $ips = explode(',',getenv('MIKROTIK_IP'));
 
-        foreach ($ips as $ip){
+        foreach ($ips as $ip) {
             $accounting_service[] = new AccountingService($this->http_client, getenv('NETWORK_RANGE'), $ip, getenv('MIKROTIK_PORT'), getenv('MIKROTIK_PROTO'));
         }
         $influxdb_service = new InfluxDBService($database);
 
-        foreach ($accounting_service as $processor){
+        foreach ($accounting_service as $processor) {
             try {
                 $processor->fetch();
                 $processor->parse();
