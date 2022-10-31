@@ -24,6 +24,9 @@ class JsonCommand extends Command
     {
         $client = new \GuzzleHttp\Client(['verify' => getenv('MIKROTIK_SSL_VERIFY') == 'true']);
 
+        if (count(explode(',',getenv('MIKROTIK_IP'))) > 1){
+            throw new \Exception("Cannot use multiple mikrotik ips in this mode. ");
+        }
         $accounting_service = new AccountingService($client, getenv('NETWORK_RANGE'), getenv('MIKROTIK_IP'), getenv('MIKROTIK_PORT'), getenv('MIKROTIK_PROTO'));
 
         $accounting_service->fetch();

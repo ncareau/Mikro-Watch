@@ -28,13 +28,25 @@ class InfluxDBCommand extends Command
         $influx_client = new Client(getenv('INFLUXDB_HOST'), getenv('INFLUXDB_PORT'), getenv('INFLUXDB_USER'), getenv('INFLUXDB_PASS'));
         $database = $influx_client->selectDB(getenv('INFLUXDB_DATABASE'));
 
-        $accounting_service = new AccountingService($client, getenv('NETWORK_RANGE'), getenv('MIKROTIK_IP'), getenv('MIKROTIK_PORT'), getenv('MIKROTIK_PROTO'));
+        $accounting_service = [];
+        $ips = explode(',',getenv('MIKROTIK_IP'));
+
+        foreach ($ips as $ip) {
+            $accounting_service[] = new AccountingService($this->http_client, getenv('NETWORK_RANGE'), $ip, getenv('MIKROTIK_PORT'), getenv('MIKROTIK_PROTO'));
+        }
         $influxdb_service = new InfluxDBService($database);
 
-        $accounting_service->fetch();
-        $accounting_service->parse();
-        $influxdb_service->push($accounting_service->getData());
-
+        foreach ($accounting_service as $processor) {
+            try {
+                $processor->fetch();
+                $processor->parse();
+    
+                $influxdb_service->push($processor->getData(), $processor->getIP());
+            } catch (\Exception $e) {
+                $output->writeln($e->getMessage());
+    
+            }
+        }
     }
 
 }

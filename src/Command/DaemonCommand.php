@@ -47,20 +47,29 @@ class DaemonCommand extends EndlessCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $accounting_service = new AccountingService($this->http_client, getenv('NETWORK_RANGE'), getenv('MIKROTIK_IP'), getenv('MIKROTIK_PORT'), getenv('MIKROTIK_PROTO'));
+        $accounting_service = [];
+        $ips = explode(',',getenv('MIKROTIK_IP'));
+
+        foreach ($ips as $ip) {
+            $accounting_service[] = new AccountingService($this->http_client, getenv('NETWORK_RANGE'), $ip, getenv('MIKROTIK_PORT'), getenv('MIKROTIK_PROTO'));
+        }
+        
         $influxdb_service = new InfluxDBService($this->influxdb_database);
 
-        try {
-            $accounting_service->fetch();
-            $accounting_service->parse();
-
-            $this->throwExceptionOnShutdown();
-
-            $influxdb_service->push($accounting_service->getData());
-        } catch (\Exception $e) {
-            $output->writeln($e->getMessage());
-
+        foreach ($accounting_service as $processor) {
+            try {
+                $processor->fetch();
+                $processor->parse();
+    
+                $this->throwExceptionOnShutdown();
+    
+                $influxdb_service->push($processor->getData(), $processor->getIP());
+            } catch (\Exception $e) {
+                $output->writeln($e->getMessage());
+    
+            }
         }
+        
     }
 
 }
