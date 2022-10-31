@@ -3,10 +3,14 @@
 
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \App\Entity\IpAccount
+ */
 class IpAccountingTest extends TestCase
 {
 
     const TEST_IP = '10.0.0.1';
+
 
     public function testIpCreateEmpty(): void
     {
@@ -18,7 +22,7 @@ class IpAccountingTest extends TestCase
         $this->assertEquals(0, $ipAccount->up_packet);
     }
 
-
+    
     public function testIpAddDownload(): void
     {
         $ipAccount = new \App\Entity\IpAccount(self::TEST_IP);
@@ -30,6 +34,7 @@ class IpAccountingTest extends TestCase
         $this->assertEquals(0, $ipAccount->up_byte);
         $this->assertEquals(0, $ipAccount->up_packet);
     }
+
 
     public function testIpAddUpload(): void
     {

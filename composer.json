@@ -28,9 +28,9 @@
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "^9.5"
+        "phpunit/phpunit": "9.5.25"
     },
     "scripts": {
-        "test": "phpunit tests"
+        "test": "phpunit tests --coverage-clover=coverage.xml"
     }
 }
