@@ -41,7 +41,7 @@ class InfluxDBCommand extends Command
                 $processor->fetch();
                 $processor->parse();
     
-                $influxdb_service->push($processor->getData());
+                $influxdb_service->push($processor->getData(), $processor->getIP());
             } catch (\Exception $e) {
                 $output->writeln($e->getMessage());
     

@@ -139,4 +139,12 @@ class AccountingService
         return $this->data;
     }
 
+    /**
+     * @return IP
+     */
+    public function getIP()
+    {
+        return $this->mikrotik_ip;
+    }
+
 }

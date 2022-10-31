@@ -63,7 +63,7 @@ class DaemonCommand extends EndlessCommand
     
                 $this->throwExceptionOnShutdown();
     
-                $influxdb_service->push($processor->getData());
+                $influxdb_service->push($processor->getData(), $processor->getIP());
             } catch (\Exception $e) {
                 $output->writeln($e->getMessage());
     

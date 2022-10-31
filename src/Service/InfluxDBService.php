@@ -5,6 +5,7 @@ namespace App\Service;
 
 
 use App\Entity\IpAccount;
+use IPTools\IP;
 use InfluxDB\Database;
 use InfluxDB\Point;
 
@@ -24,10 +25,11 @@ class InfluxDBService
 
     /**
      * @param $data IpAccount[]
+     * @param $host IP
      * @throws Database\Exception
      * @throws \InfluxDB\Exception
      */
-    public function push($data)
+    public function push($data, $host)
     {
         $points = [];
 
@@ -45,7 +47,7 @@ class InfluxDBService
                 $counters["up_byte"] = (int)$d->up_byte;
             }
 
-            $tags = ["ip" => $d->ip, "host" => getenv('MIKROTIK_IP')];
+            $tags = ["ip" => $d->ip, "host" => $host->__tostring()];
 
             if ($d->dnsname) {
                 $tags["dnsname"] = $d->dnsname;
