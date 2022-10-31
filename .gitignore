@@ -19,8 +19,8 @@
 /vendor/
 
 # PHPUnit
-/app/phpunit.xml
-/phpunit.xml
+/.phpunit.cache/*
+coverage.xml
 
 # Build data
 /build/
