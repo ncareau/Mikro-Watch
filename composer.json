@@ -18,7 +18,7 @@
         "symfony/dotenv": "^5.4",
         "symfony/event-dispatcher": "^5.4",
         "guzzlehttp/guzzle": "^7.5",
-        "s1lentium/iptools": "^1.1",
+        "s1lentium/iptools": "dev-master#88be1aaaab3c50fc131ebe778e246215ff006d8e",
         "influxdb/influxdb-php": "^1.15",
         "wrep/daemonizable-command": "^3.1"
     },
